@@ -107,9 +107,9 @@ minetest.register_chatcommand("placemap", {
             local_height = get_local_height(ix, iz, height, lines)
           end
 
-          for iy=0, height+1, 1
+          for iy=1-floor, height+roof, 1
           do
-            if iy == 0 or iy > height or char == "#" then
+            if iy <= 0 or iy > height or char == "#" then
               minetest.set_node({x=pos["x"]+ix, y=pos["y"]+iy, z=pos["z"]+iz}, fill_mat)
             elseif char == "-" or char == "|" then
               -- door placement doesn't work like this, so just make doorways low
