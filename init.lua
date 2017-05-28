@@ -52,7 +52,7 @@ minetest.register_chatcommand("placemap", {
       if param == "" then
         return false, "Specify a file name"
       end
-      local file = minetest.get_modpath("mine_test_mod_tutorial") .. '/' .. param
+      local file = minetest.get_modpath("ascii2map") .. '/' .. param
       local lines = lines_from(file)
       if lines == nil then
         return false, "Could not find " .. file
