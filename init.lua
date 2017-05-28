@@ -84,16 +84,17 @@ minetest.register_chatcommand("placemap", {
         local west = string.sub(lines[ix], iz-1, iz-1)
         local east = string.sub(lines[ix], iz+1, iz+1)
 
-        if north ~= '.' then
+        local wall_like = "[#|%-]"
+        if string.find(north, wall_like) then
           local_height = local_height-1
         end
-        if south ~= '.' then
+        if string.find(south, wall_like) then
           local_height = local_height-1
         end
-        if west ~= '.' then
+        if string.find(east, wall_like) then
           local_height = local_height-1
         end
-        if east ~= '.' then
+        if string.find(west, wall_like) then
           local_height = local_height-1
         end
         return local_height
