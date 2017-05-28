@@ -71,9 +71,11 @@ minetest.register_chatcommand("placemap", {
       local fill_mat = {name=string.match(settings, "material=(%a+:?%a+)"), param1=0}
 
       local air = {name="air", param1=0}
-      local door = {name="my_castle_doors:door6_locked"}
-      local door_h = {name="doors:door_steel_b_1"}
-      local door_v = {name="doors:door_steel_t_1"}
+      local door_w = {name="doors:door_wood_a", param1=0}
+      local door_s = {name="doors:door_wood_a", param1=0, param2=1}
+      local door_e = {name="doors:door_wood_b", param1=0}
+      local door_n = {name="doors:door_wood_b", param1=0, param2=1}
+      local door_hidden = {name="doors:hidden"}
 
       local function get_local_height(ix, iz, height, lines)
         local local_height = height
@@ -112,10 +114,15 @@ minetest.register_chatcommand("placemap", {
             if iy <= 0 or iy > height or char == "#" then
               minetest.set_node({x=pos["x"]+ix, y=pos["y"]+iy, z=pos["z"]+iz}, fill_mat)
             elseif char == "-" or char == "|" then
-              -- door placement doesn't work like this, so just make doorways low
-              -- if iy == 1 then
-              --   minetest.set_node({x=pos["x"]+ix, y=pos["y"]+iy, z=pos["z"]+iz}, door_h)
-              if iy > 2 then
+              if iy == 1 then
+                if char == "|" then
+                  minetest.set_node({x=pos["x"]+ix, y=pos["y"]+iy, z=pos["z"]+iz}, door_w)
+                else
+                  minetest.set_node({x=pos["x"]+ix, y=pos["y"]+iy, z=pos["z"]+iz}, door_s)
+                end
+              elseif iy == 2 then
+                minetest.set_node({x=pos["x"]+ix, y=pos["y"]+iy, z=pos["z"]+iz}, door_hidden)
+              else
                 minetest.set_node({x=pos["x"]+ix, y=pos["y"]+iy, z=pos["z"]+iz}, fill_mat)
               else
                 minetest.set_node({x=pos["x"]+ix, y=pos["y"]+iy, z=pos["z"]+iz}, air)
