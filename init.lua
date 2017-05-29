@@ -116,6 +116,13 @@ function place_map(mapname)
           else
             minetest.set_node({x=pos["x"]+ix, y=pos["y"]+iy, z=pos["z"]+iz}, fill_mat)
           end
+        elseif string.match(char, "%d") then
+          local feature_height = tonumber(char)
+          if iy > feature_height and iy < local_height then
+            minetest.set_node({x=pos["x"]+ix, y=pos["y"]+iy, z=pos["z"]+iz}, air)
+          else
+            minetest.set_node({x=pos["x"]+ix, y=pos["y"]+iy, z=pos["z"]+iz}, fill_mat)
+          end
         else
           if iy < local_height then
             minetest.set_node({x=pos["x"]+ix, y=pos["y"]+iy, z=pos["z"]+iz}, air)
